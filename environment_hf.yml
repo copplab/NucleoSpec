@@ -1,0 +1,15 @@
+name: dna_mass_spec
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - flask=3.0.0
+  - numpy=1.26.4
+  - scipy=1.16.3
+  - sympy=1.14.0
+  - rdkit
+  - matplotlib
+  - pip
+  - pip:
+    - IsoSpecPy==2.2.1

@@ -1,0 +1,46 @@
+name: Sync to Hugging Face
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Push to HF Space
+        env:
+          HF_TOKEN: ${{ secrets.HF }}
+        run: |
+          git clone https://viviandlin:$HF_TOKEN@huggingface.co/spaces/copplab/NucleoSpec hf_repo || {
+            mkdir hf_repo && cd hf_repo && git init && git branch -M main
+            git remote add origin https://viviandlin:$HF_TOKEN@huggingface.co/spaces/copplab/NucleoSpec
+            cd ..
+          }
+
+          cd hf_repo
+          git config user.email "vivian891110@gmail.com"
+          git config user.name "viviandlin"
+
+          # Remove old files (except .git) and copy fresh ones
+          find . -maxdepth 1 ! -name '.git' ! -name '.' -exec rm -rf {} +
+          cp ../dna_silver_webapp.py .
+          cp ../Dockerfile .
+          cp ../environment_hf.yml .
+          # Prepend HF Space YAML frontmatter (kept out of GitHub README)
+          printf '%s\n' '---' 'title: NucleoSpec' 'emoji: 🔬' 'colorFrom: blue' 'colorTo: purple' 'sdk: docker' 'app_port: 7860' 'pinned: false' 'license: cc-by-nc-4.0' 'short_description: ESI-MS analysis of nucleic acid-silver complexes' '---' '' > README.md
+          cat ../README.md >> README.md
+          cp -r ../core/ core/
+          cp -r ../lib/ lib/
+          cp -r ../templates/ templates/
+          cp -r ../sample_data/ sample_data/
+
+          echo "${{ github.sha }}" > .last_sync
+          git add -A
+          git commit -m "Sync from GitHub: ${{ github.event.head_commit.message }}"
+          git push origin main
