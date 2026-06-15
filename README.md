@@ -96,6 +96,12 @@ Supported formats: .txt, .csv
 - **Frontend:** HTML5, JavaScript, Plotly.js, JSME
 - **Libraries:** PythoMS, IsoSpecPy
 
+## Citation
+
+If you use NucleoSpec in a publication, please cite:
+
+> Lin, I.-H.; Copp, S. M. A Tutorial on Automated Mass Spectral Analysis using NucleoSpec for Compositional Assignment of Nucleic Acid–Silver Complexes and Nanoclusters. *ChemRxiv* 2026. [DOI: 10.26434/chemrxiv.15004738/v1](https://doi.org/10.26434/chemrxiv.15004738/v1)
+
 ## Support
 
 - **Developer:** I-Hsin (Vivian) Lin
