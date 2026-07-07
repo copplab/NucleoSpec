@@ -8,14 +8,22 @@ A web-based application for analyzing nucleic acid (DNA/XNA)-silver complexes an
 
 ```
 NucleoSpec/
-├── dna_silver_webapp.py    # Main Flask application
+├── dna_silver_webapp.py       # Main Flask application
 ├── core/
-│   └── analyzer.py         # DNASilverAnalyzer class (analysis logic)
+│   ├── analyzer.py            # DNASilverAnalyzer class (composition search)
+│   ├── spectrum.py            # SpectrumMixin: parsing, peak detection
+│   ├── envelope.py            # EnvelopeMixin: Gaussian fitting, symmetry
+│   ├── scoring.py             # ScoringMixin: pattern similarity, scoring
+│   ├── isotope.py             # IsotopeMixin: isotope pattern generation
+│   ├── charge.py              # ChargeMixin: charge state detection
+│   ├── adducts.py             # AdductMixin: custom adduct CRUD
+│   └── dna.py                 # DNAMixin: DNA/XNA composition helpers
 ├── lib/
-│   └── pythoms/            # PythoMS library (isotope calculations)
-├── templates/              # HTML templates
-├── sample_data/            # Example spectrum files
-└── environment_hf.yml      # HuggingFace deployment environment
+│   └── pythoms/               # PythoMS library (isotope calculations)
+├── templates/
+│   └── index.html             # Single-page frontend (Plotly.js, JSME)
+├── sample_data/               # Example spectrum files
+└── environment_hf.yml         # HuggingFace deployment environment
 ```
 
 ## Installation
